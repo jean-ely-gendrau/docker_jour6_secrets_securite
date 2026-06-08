@@ -1,0 +1,9 @@
+# Méthode 3 : interpolation ${VAR} dans le compose
+# ➕ Permet de paramétrer les versions d'image, les ports...
+# ➖ Variable doit exister à l'exécution (sinon string vide ou erreur)
+services:
+  mysql:
+    image: mysql:${MYSQL_VERSION:-8}
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=${DB_NAME:-defaultdb}

@@ -1,0 +1,10 @@
+# Méthode 2 : env_file (charger un fichier externe)
+# ➕ Sépare config et code, peut être gitignored
+# ➖ Le fichier reste en clair sur le disque
+services:
+  api:
+    image: node:20-alpine
+    # $$ = $ littéral : sh évalue les variables dans le conteneur (pas Compose côté hôte).
+    command: sh -c 'echo "NODE_ENV=$$NODE_ENV / PORT=$$PORT / DB_HOST=$$DB_HOST"'
+    env_file:
+      - .env

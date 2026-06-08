@@ -1,0 +1,27 @@
+# Compose qui empile TOUTES les protections vues aujourd'hui
+services:
+  api:
+    build: .
+
+    # 1. Filesystem en lecture seule
+    read_only: true
+
+    # 2. Zones d'écriture autorisées (en mémoire)
+    tmpfs:
+      - /tmp:mode=1777
+      - /var/run
+
+    # 3. Empêcher l'escalade de privilèges (setuid bloqué)
+    security_opt:
+      - no-new-privileges:true
+
+    # 4. Retirer TOUTES les capabilities Linux
+    cap_drop:
+      - ALL
+
+    # 5. (Bonus) Limites de ressources
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 128M

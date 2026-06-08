@@ -1,0 +1,6 @@
+# Dockerfile NON sécurisé (pour comparaison)
+FROM node:20-alpine
+WORKDIR /app
+COPY server.js ./
+# Pas de USER → tourne en root par défaut
+CMD ["node", "server.js"]

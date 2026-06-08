@@ -1,0 +1,11 @@
+services:
+  api:
+    image: node:20-alpine
+    # Forme liste pour éviter les soucis avec ':' dans la string
+    # $$ = $ littéral : empêche Compose d'interpoler côté hôte,
+    # pour que sh évalue $NODE_ENV dans le conteneur (où la précédence s'applique).
+    command: ["sh", "-c", "echo NODE_ENV vaut $$NODE_ENV"]
+    env_file:
+      - .env                         # niveau 3 : NODE_ENV=development
+    environment:
+      NODE_ENV: production          # niveau 2 : écrase le .env

@@ -1,0 +1,16 @@
+# ⚠️ ANTI-PATTERN — Ne JAMAIS faire ça en production !
+# Mots de passe en clair, visibles dans git, dans docker inspect, dans l'historique...
+services:
+  api:
+    image: node:20-alpine
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=admin
+      - DB_PASSWORD=Sup3rS3cr3t!2024     # 👈 EN CLAIR dans le compose
+      - JWT_SECRET=monjetonjwttressecret  # 👈 visible par tous
+
+  mysql:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=root123       # 👈 idem
+      - MYSQL_DATABASE=myapp

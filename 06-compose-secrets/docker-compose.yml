@@ -1,0 +1,30 @@
+# Démo 6 : compose qui CONSOMME les secrets de la démo 5
+# Image alpine minimaliste qui démontre les deux modes d'accès :
+#   1. via le fichier monté    -> cat /run/secrets/db_password
+#   2. via la variable _FILE   -> read+trim depuis le shell
+services:
+  api:
+    image: alpine
+    secrets:
+      - db_password
+      - db_user
+    environment:
+      - DB_PASSWORD_FILE=/run/secrets/db_password
+      - DB_USER_FILE=/run/secrets/db_user
+    command:
+      - sh
+      - -c
+      - |
+        echo "=== Méthode 1 : lecture directe du fichier monté ==="
+        echo "Password : $$(cat /run/secrets/db_password)"
+        echo "User     : $$(cat /run/secrets/db_user)"
+        echo
+        echo "=== Méthode 2 : via la variable _FILE ==="
+        echo "DB_PASSWORD_FILE pointe sur : $$DB_PASSWORD_FILE"
+        echo "Contenu : $$(cat $$DB_PASSWORD_FILE)"
+
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt
+  db_user:
+    file: ./secrets/db_user.txt

@@ -1,0 +1,12 @@
+# Méthode 1 : environment (en dur dans le compose)
+# ➕ Simple, visible
+# ➖ Pas idéal pour les secrets
+services:
+  api:
+    image: node:20-alpine
+    # $$ = $ littéral : sh évalue les variables dans le conteneur (pas Compose côté hôte).
+    command: sh -c 'echo "NODE_ENV=$$NODE_ENV / PORT=$$PORT / DEBUG=$$DEBUG"'
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DEBUG=false
