@@ -31,7 +31,8 @@ Dans `git status` :
 
 Si tu utilises `echo "password"` (double quote) avec certains shells/éditeurs, tu peux te retrouver avec :
 
-- un BOM en début (Windows)
+- un BOM en début [Windows](https://www.w3.org/International/questions/qa-byte-order-mark.fr.html#:~:text=Le%20BOM%20renseigne%20sur%20l,aucune%20s%C3%A9quence%20d'octets%20alternative.)
+
 - des `\r\n` au lieu de `\n` (Windows)
 - un `\n` final invisible
 
